@@ -25,6 +25,22 @@ function App() {
     5: 'center 40%',
     6: 'center 28%',
   };
+  const serviceCardImages = {
+    1: '/service1.jpg',
+    2: '/service3.jpg',
+    3: '/service2.jpg',
+    5: '/service4.jpg',
+    6: '/service5.jpg',
+    4: '/service4.jpg',
+  };
+  const modalServiceImages = {
+    1: '/service1.jpg',
+    2: '/service3.jpg',
+    3: '/service2.jpg',
+    5: '/service4.jpg',
+    6: '/service5.jpg',
+    4: '/service4.jpg',
+  };
   const modalImagePosition = {
     1: 'center 58%',
     2: 'center 57%',
@@ -228,7 +244,7 @@ function App() {
                     onClick={() => setSelectedService(service)}
                   >
                     <img
-                      src={`/service-${service.id}.jpg`}
+                      src={serviceCardImages[service.id] || `/service${service.id}.jpg`}
                       alt={service.name}
                       className="w-full h-[240px] object-cover"
                       style={{ objectPosition: serviceImagePosition[service.id] }}
@@ -436,7 +452,7 @@ function App() {
                 ×
               </button>
               <img
-                src={`/service-${selectedService.id}.jpg`}
+                src={modalServiceImages[selectedService.id] || `/service${selectedService.id}.jpg`}
                 alt={selectedService.name}
                 className="w-full h-[250px] sm:h-[280px] md:h-[360px] lg:h-[400px] object-cover flex-none"
                 style={{ objectPosition: modalImagePosition[selectedService.id] }}
