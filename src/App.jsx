@@ -4,7 +4,10 @@ import { translations } from './data';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lang, setLang] = useState('ru');
+  const [lang, setLang] = useState(() => {
+    const savedLang = window.localStorage.getItem('somasensus-lang');
+    return savedLang || 'et';
+  });
   const [scrolled, setScrolled] = useState(false);
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
@@ -65,6 +68,10 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    window.localStorage.setItem('somasensus-lang', lang);
+  }, [lang]);
+
   return (
     <div className="bg-[#2c2c2c] min-h-screen text-white font-body overflow-x-hidden">
       <nav className={`fixed w-full z-50 transition-all duration-500 px-5 md:px-12 py-5 flex justify-between items-center text-white ${scrolled ? 'bg-black/70 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
@@ -104,7 +111,7 @@ function App() {
               <button onClick={() => setIsMenuOpen(false)} className="text-4xl">×</button>
             </div>
             <div className="flex flex-col gap-7 text-3xl font-display italic">
-              <a href="#space" onClick={() => setIsMenuOpen(false)}>SomaSensus</a>
+              <a href="#space" onClick={() => setIsMenuOpen(false)} className="uppercase">SomaSensus</a>
               <a href="#about" onClick={() => setIsMenuOpen(false)}>{t.nav.about}</a>
               <a href="#services" onClick={() => setIsMenuOpen(false)}>{t.nav.services}</a>
               <a href="#booking" onClick={() => setIsMenuOpen(false)}>{t.nav.booking}</a>
